@@ -27,7 +27,7 @@ public class Event {
     private Content content;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL) // TODO: 21-07-2017  
     @JoinColumn(name = "device_id")
     private Device device;
 

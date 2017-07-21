@@ -9,6 +9,8 @@ import org.springframework.data.annotation.PersistenceConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Apro on 18-07-2017.
@@ -26,9 +28,11 @@ public class Person {
     private long id;
 
     @NotNull
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "device_id")
-    private Device device;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "person_device",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "device_id"))
+    private final List<Device> devices = new ArrayList<>();
 
     @Column(nullable = false)
     private LocalDateTime appears;
@@ -44,13 +48,22 @@ public class Person {
     @Enumerated(EnumType.STRING)
     private Sex gender;
 
-    public Person(Device device, LocalDateTime appears, LocalDateTime disappears, int age, Sex gender) {
-        this.device = device;
+    public Person(LocalDateTime appears, LocalDateTime disappears, int age, Sex gender) {
         this.appears = appears;
         this.disappears = disappears;
         this.age = age;
         this.gender = gender;
     }
+
+    public void addDevice(@NotNull Device device) {
+        devices.add(device);
+        device.getPeople().add(this);
+    }
+
+//    public void removeDevice(@NotNull Device device) {
+//        devices.remove(device);
+//        device.getPeople().remove(this);
+//    }
 
     public enum Sex {
         MALE,

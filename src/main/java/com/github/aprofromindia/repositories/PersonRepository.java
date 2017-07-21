@@ -14,22 +14,22 @@ import java.time.LocalDateTime;
 
 public interface PersonRepository extends Repository<Person, Long> {
 
-    Person save(Person person);
+    void save(Person person);
 
-    @Query("select count(p) from Person p join p.device d join d.events e join e.content c" +
+    @Query("select count(p) from Person p join p.devices d join d.events e join e.content c" +
             " where c.id = :contentId and d.id = :deviceId and p.appears between :startTime and :endTime")
     long personCountByDeviceAndContent(@Param("deviceId") long deviceId, @Param("contentId") long contentId,
                                        @Param("startTime") LocalDateTime start, @Param("endTime") LocalDateTime end);
 
-    @Query("select avg(p.age) from Person p join p.device d join d.events e join e.content c" +
+    @Query("select avg(p.age) from Person p join p.devices d join d.events e join e.content c" +
             " where c.id = :contentId and d.id = :deviceId and p.appears between :startTime and :endTime")
     long avgAgeByDevicesAndContent(@Param("deviceId") long deviceId, @Param("contentId") long contentId,
                                    @Param("startTime") LocalDateTime start, @Param("endTime") LocalDateTime end);
 
-//    @Query("select count(p.Sex), count(p.Sex) from Person p join p.device d join d.events e join e.content c " +
-//            "where c.id = :contentId and d.id = :deviceId and p.appears between :startTime and :endTime")
-//    Pair<Integer, Integer> genderDistByDevicesAndContent(@Param("deviceId") long deviceId,
-//                                                         @Param("contentId") long contentId,
-//                                                         @Param("startTime") LocalDateTime start,
-//                                                         @Param("endTime") LocalDateTime end);
+    @Query("select sum(p.gender), sum(p.gender) from Person p join p.devices d join d.events e join e.content c " +
+            "where c.id = :contentId and d.id = :deviceId and p.appears between :startTime and :endTime")
+    Pair<Integer, Integer> genderDistByDevicesAndContent(@Param("deviceId") long deviceId,
+                                                         @Param("contentId") long contentId,
+                                                         @Param("startTime") LocalDateTime start,
+                                                         @Param("endTime") LocalDateTime end);
 }

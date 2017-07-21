@@ -47,23 +47,23 @@ public class CsvLoader {
             final int age = Integer.parseInt(splits[3]);
             final Person.Sex sex = Person.Sex.valueOf(splits[4].toUpperCase());
 
-            Person p = new Person(device, appears, disappears, age, sex);
-            device.addPerson(p);
-            personRepository.save(p);
+            Person person = new Person(appears, disappears, age, sex);
+            person.addDevice(device);
+            personRepository.save(person);
         });
 
-        updateDB(eventRes, (String[] splits) -> {
-            final Content content = new Content(Long.parseLong(splits[0]));
-            final Device device = new Device(Long.parseLong(splits[1]));
-            final Event.Type type = Event.Type.valueOf(splits[2].toUpperCase());
-            final LocalDateTime timeStamp = LocalDateTime.parse(splits[3],
-                    DateTimeFormatter.ofPattern(PeopleController.DATE_TIME_PATTERN));
-
-            Event event = new Event(content, device, type, timeStamp);
-            content.addEvent(event);
-            device.addEvent(event);
-            eventsRepository.save(event);
-        });
+//        updateDB(eventRes, (String[] splits) -> {
+//            final Content content = new Content(Long.parseLong(splits[0]));
+//            final Device device = new Device(Long.parseLong(splits[1]));
+//            final Event.Type type = Event.Type.valueOf(splits[2].toUpperCase());
+//            final LocalDateTime timeStamp = LocalDateTime.parse(splits[3],
+//                    DateTimeFormatter.ofPattern(PeopleController.DATE_TIME_PATTERN));
+//
+//            Event event = new Event(content, device, type, timeStamp);
+//            content.addEvent(event);
+//            device.addEvent(event);
+//            eventsRepository.save(event);
+//        });
     }
 
     private void updateDB(@NotNull Resource resource, @NotNull Consumer<String[]> consumer) {

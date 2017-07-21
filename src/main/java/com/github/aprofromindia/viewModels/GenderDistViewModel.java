@@ -2,6 +2,7 @@ package com.github.aprofromindia.viewModels;
 
 import lombok.Getter;
 import lombok.Value;
+import org.springframework.data.util.Pair;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
  */
 
 @Getter
-public class GenderDistViewModel extends BaseViewModel{
+public class GenderDistViewModel extends BaseViewModel {
     private GenderDist genderDist;
 
     public GenderDistViewModel(LocalDateTime start, LocalDateTime end, long deviceId, long contentId, GenderDist genderDist) {
@@ -18,9 +19,14 @@ public class GenderDistViewModel extends BaseViewModel{
         this.genderDist = genderDist;
     }
 
-    @Value
-    public static class GenderDist{
+    @Getter
+    public static class GenderDist {
         private long male;
         private long female;
+
+        public GenderDist(Pair<Integer, Integer> pair) {
+            this.male = pair.getFirst();
+            this.female = pair.getSecond();
+        }
     }
 }

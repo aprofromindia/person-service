@@ -33,7 +33,8 @@ public class EventReadServiceImpl implements EventReadService {
 
     @Override
     public GenderDistViewModel getGenderDist(LocalDateTime start, LocalDateTime end, long deviceId, long contentId) {
-        final GenderDistViewModel.GenderDist genderDist = null;
+        final GenderDistViewModel.GenderDist genderDist =
+                new GenderDistViewModel.GenderDist(repository.genderDistByDevicesAndContent(deviceId, contentId, start, end));
         return new GenderDistViewModel(start, end, deviceId, contentId, genderDist);
     }
 }
