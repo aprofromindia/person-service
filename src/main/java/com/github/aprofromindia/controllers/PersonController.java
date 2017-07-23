@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,9 +31,16 @@ public class PersonController {
 
     private final EventReadService service;
 
-    @GetMapping("/")
-    HttpEntity<String> getIndex(){
-        return new ResponseEntity<>("Welcome to the Person API", HttpStatus.OK);
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    HttpEntity<Resource<String>> getIndex() {
+        final Resource<String> resource = new Resource<>("Welcome to the Person API",
+                linkTo(methodOn(PersonController.class).getViewersCount(LocalDateTime.MIN, LocalDateTime.MAX, 0, 0))
+                        .withRel(AppConstants.REL_VIEWER_COUNT),
+                linkTo(methodOn(PersonController.class).getAvgAge(LocalDateTime.MIN, LocalDateTime.MAX, 0, 0))
+                        .withRel(AppConstants.REL_AVG_AGE),
+                linkTo(methodOn(PersonController.class).getGenderDist(LocalDateTime.MIN, LocalDateTime.MAX, 0, 0))
+                        .withRel(AppConstants.REL_GENDER_DIST));
+        return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
     @GetMapping("/viewer-count")

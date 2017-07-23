@@ -19,6 +19,11 @@ public interface PersonRepository extends Repository<Person, Long> {
     long personCountByDeviceAndContent(@Param("deviceId") long deviceId, @Param("contentId") long contentId,
                                        @Param("startTime") LocalDateTime start, @Param("endTime") LocalDateTime end);
 
+//    @Query("select count(p) from Person p where p.device.events.content.id = :contentId" +
+//            " and p.device.id = :deviceId and p.appears between :startTime and :endTime")
+//    long personCountByDeviceAndContent(@Param("deviceId") long deviceId, @Param("contentId") long contentId,
+//                                       @Param("startTime") LocalDateTime start, @Param("endTime") LocalDateTime end);
+
 //    @Query("select count(p) from Person p join p.device d where d.id = :deviceId and p.appears between :startTime and :endTime")
 //    long personCountByDeviceAndContent(@Param("deviceId") long deviceId,
 //                                       @Param("startTime") LocalDateTime start, @Param("endTime") LocalDateTime end);
