@@ -24,7 +24,7 @@ public interface PersonRepository extends Repository<Person, Long> {
     float avgAgeByDevicesAndContent(@Param("deviceId") long deviceId, @Param("contentId") long contentId,
                                     @Param("startTime") LocalDateTime start, @Param("endTime") LocalDateTime end);
 
-    @Query("select map(sum(case p.gender when 'MALE' then 1 end) as male, sum(case p.gender when 'FEMALE' then 1 end) as female) from Person p join p.device d join d.events e" +
+    @Query("select new map(sum(case p.gender when 'MALE' then 1 end) as male, sum(case p.gender when 'FEMALE' then 1 end) as female) from Person p join p.device d join d.events e" +
             " join e.content c where c.id = :contentId and d.id = :deviceId and p.appears between :startTime and :endTime")
     Map<String, Long> genderDistByDevicesAndContent(@Param("deviceId") long deviceId,
                                                     @Param("contentId") long contentId,

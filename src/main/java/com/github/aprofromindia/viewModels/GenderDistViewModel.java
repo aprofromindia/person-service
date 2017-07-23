@@ -20,11 +20,11 @@ public class GenderDistViewModel extends BaseViewModel {
 
     @Getter
     public static class GenderDist {
-        private float male;
-        private float female;
+        private double male;
+        private double female;
 
         public GenderDist(Map<String, Long> map) {
-            final long sum = map.get("male") + map.get("female");
+            final double sum = map.get("male") + map.get("female");
             this.male = map.get("male") / sum;
             this.female = map.get("female") / sum;
         }
