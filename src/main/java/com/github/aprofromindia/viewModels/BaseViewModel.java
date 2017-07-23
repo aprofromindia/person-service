@@ -1,7 +1,7 @@
 package com.github.aprofromindia.viewModels;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.github.aprofromindia.controllers.PeopleController;
+import com.github.aprofromindia.config.AppConstants;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 
 @Getter
 abstract class BaseViewModel {
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = PeopleController.DATE_TIME_PATTERN)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = AppConstants.DATE_TIME_PATTERN)
     protected LocalDateTime start;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = PeopleController.DATE_TIME_PATTERN)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = AppConstants.DATE_TIME_PATTERN)
     protected LocalDateTime end;
     protected long deviceId;
     protected long contentId;

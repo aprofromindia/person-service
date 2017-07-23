@@ -1,7 +1,6 @@
 package com.github.aprofromindia.viewModels;
 
 import lombok.Getter;
-import lombok.Value;
 import org.springframework.data.util.Pair;
 
 import java.time.LocalDateTime;

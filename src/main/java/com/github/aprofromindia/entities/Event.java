@@ -6,6 +6,7 @@ import org.springframework.data.annotation.PersistenceConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -15,19 +16,19 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor(onConstructor = @__(@PersistenceConstructor))
 @EqualsAndHashCode(of = "id")
-public class Event {
+public class Event implements Serializable {
     @Id
     @GeneratedValue
     @Column(insertable = false, updatable = false)
     private long id;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "content_id")
     private Content content;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL) // TODO: 21-07-2017  
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "device_id")
     private Device device;
 

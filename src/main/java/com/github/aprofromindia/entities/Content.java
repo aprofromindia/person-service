@@ -8,8 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Apro on 19-07-2017.
@@ -18,11 +19,12 @@ import java.util.List;
 @Entity
 @NoArgsConstructor(onConstructor = @__(@PersistenceConstructor))
 @EqualsAndHashCode(of = "id")
-public class Content {
+public class Content implements Serializable {
     @Id
     private long id;
+
     @OneToMany(mappedBy = "content")
-    private List<Event> events = new ArrayList<>();
+    private Set<Event> events = new HashSet<>();
 
     public Content(long id) {
         this.id = id;
