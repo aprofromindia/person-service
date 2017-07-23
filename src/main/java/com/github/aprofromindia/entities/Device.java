@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.PersistenceConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -26,19 +27,18 @@ public class Device implements Serializable {
     @NotNull
     private long id;
 
-    @OneToMany(mappedBy = "device")
+    @OneToMany(mappedBy = "device", fetch = FetchType.EAGER)
     private Set<Event> events = new HashSet<>();
 
     @OneToMany(mappedBy = "device")
     private Set<Person> people = new HashSet<>();
 
-    public void addPerson(@NotNull Person person) {
-        people.add(person);
-    }
-
-
     public Device(long id) {
         this.id = id;
+    }
+
+    public void addPerson(@NotNull Person person) {
+        people.add(person);
     }
 
     public void addEvent(@NotNull Event event) {

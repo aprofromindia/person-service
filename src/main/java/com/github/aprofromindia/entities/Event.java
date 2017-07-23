@@ -16,6 +16,10 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor(onConstructor = @__(@PersistenceConstructor))
 @EqualsAndHashCode(of = "id")
+@Table(indexes = {
+        @Index(name = "event_content", columnList = "content_id"),
+        @Index(name = "event_device", columnList = "device_id")
+})
 public class Event implements Serializable {
     @Id
     @GeneratedValue

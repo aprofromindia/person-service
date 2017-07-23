@@ -1,9 +1,9 @@
 package com.github.aprofromindia.viewModels;
 
 import lombok.Getter;
-import org.springframework.data.util.Pair;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  * Created by Apro on 19-07-2017.
@@ -20,12 +20,13 @@ public class GenderDistViewModel extends BaseViewModel {
 
     @Getter
     public static class GenderDist {
-        private long male;
-        private long female;
+        private float male;
+        private float female;
 
-        public GenderDist(Pair<Integer, Integer> pair) {
-            this.male = pair.getFirst();
-            this.female = pair.getSecond();
+        public GenderDist(Map<String, Long> map) {
+            final long sum = map.get("male") + map.get("female");
+            this.male = map.get("male") / sum;
+            this.female = map.get("female") / sum;
         }
     }
 }

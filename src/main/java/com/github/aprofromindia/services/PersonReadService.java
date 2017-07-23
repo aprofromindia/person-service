@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * Created by Apro on 19-07-2017.
  */
 
-public interface EventReadService {
+public interface PersonReadService {
     PersonCountViewModel getCountBy(LocalDateTime start, LocalDateTime end, long deviceId, long contentId);
 
     AverageAgeViewModel getAvgAge(LocalDateTime start, LocalDateTime end, long deviceId, long contentId);

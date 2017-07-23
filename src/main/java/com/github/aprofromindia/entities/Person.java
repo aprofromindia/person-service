@@ -19,6 +19,11 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(onConstructor = @__(@PersistenceConstructor))
 @EqualsAndHashCode(of = "id")
+@Table(indexes = {
+        @Index(name = "person_appears", columnList = "appears"),
+        @Index(name = "person_disappears", columnList = "disappears"),
+        @Index(name = "person_device", columnList = "device_id")
+})
 public class Person implements Serializable {
 
     @Id

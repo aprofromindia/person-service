@@ -1,7 +1,7 @@
 package com.github.aprofromindia.controllers;
 
 import com.github.aprofromindia.config.AppConstants;
-import com.github.aprofromindia.services.EventReadService;
+import com.github.aprofromindia.services.PersonReadService;
 import com.github.aprofromindia.viewModels.AverageAgeViewModel;
 import com.github.aprofromindia.viewModels.GenderDistViewModel;
 import com.github.aprofromindia.viewModels.PersonCountViewModel;
@@ -29,7 +29,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RequiredArgsConstructor
 public class PersonController {
 
-    private final EventReadService service;
+    private final PersonReadService service;
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     HttpEntity<Resource<String>> getIndex() {

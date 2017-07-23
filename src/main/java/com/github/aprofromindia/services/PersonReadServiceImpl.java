@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class EventReadServiceImpl implements EventReadService {
+public class PersonReadServiceImpl implements PersonReadService {
 
     private final PersonRepository repository;
 
